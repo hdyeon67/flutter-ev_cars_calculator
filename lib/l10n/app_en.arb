@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "title": "EV Cars Calculator",
+  "@title": {
+    "description": "Title displayed on the home screen"
+  },
+  "description": "Welcome to our app.",
+  "@description": {
+    "description": "Subtitle shown below the title"
+  }
+}

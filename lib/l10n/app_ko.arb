@@ -1,0 +1,11 @@
+{
+  "@@locale": "ko",
+  "title": "전기차 충전 계산기",
+  "@title": {
+    "description": "홈 화면에 표시되는 제목"
+  },
+  "description": "우리 앱에 오신 것을 환영합니다.",
+  "@description": {
+    "description": "제목 아래 표시되는 부제목"
+  }
+}
