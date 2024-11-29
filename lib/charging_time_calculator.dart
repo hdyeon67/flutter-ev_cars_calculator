@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dialog/battery_selection_dialog.dart'; // BatterySelectionDialog 파일 import
 import 'dialog/custom_battery_dialog.dart'; // CustomBatteryDialog 파일 import
 import 'data/ev_battery_capacities.dart'; // evBatteryCapacities 파일 import
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChargingTimeCalculator extends StatefulWidget {
   const ChargingTimeCalculator({super.key});
@@ -50,6 +51,8 @@ class _ChargingTimeCalculatorState extends State<ChargingTimeCalculator> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
@@ -63,8 +66,9 @@ class _ChargingTimeCalculatorState extends State<ChargingTimeCalculator> {
                 leading: const Icon(Icons.battery_full, color: Colors.green),
                 title: Text(
                   _batteryCapacity != null
-                      ? 'Battery: ${_batteryCapacity!.toStringAsFixed(1)} kWh'
-                      : 'Select Battery Capacity',
+                      ? localizations.selected_battery_capacity(
+                          _batteryCapacity!.toStringAsFixed(1))
+                      : localizations.select_battery_capacity_msg,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 trailing: IconButton(
@@ -95,14 +99,14 @@ class _ChargingTimeCalculatorState extends State<ChargingTimeCalculator> {
               ),
             ),
             const SizedBox(height: 16),
-            _buildInputField(_currentChargeController, 'Current Charge (%)',
-                Icons.battery_charging_full),
+            _buildInputField(_currentChargeController,
+                localizations.current_charge, Icons.battery_charging_full),
             const SizedBox(height: 16),
-            _buildInputField(_targetChargeController, 'Target Charge (%)',
-                Icons.battery_alert),
+            _buildInputField(_targetChargeController,
+                localizations.target_charge, Icons.battery_alert),
             const SizedBox(height: 16),
-            _buildInputField(
-                _chargingPowerController, 'Charging Power (kW)', Icons.power),
+            _buildInputField(_chargingPowerController,
+                localizations.charging_power, Icons.power),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
@@ -113,14 +117,27 @@ class _ChargingTimeCalculatorState extends State<ChargingTimeCalculator> {
                 backgroundColor: const Color(0xff536dfe),
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Calculate Charging Time'),
+              child: Text(localizations.calculate_charging_time),
             ),
             const SizedBox(height: 16),
             if (_chargingTimeHours != null && _chargingTimeMinutes != null)
-              Text(
-                'Charging Time: $_chargingTimeHours hours $_chargingTimeMinutes minutes',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Card(
+                color: Colors.green.shade50,
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        localizations.result_charging_time(
+                            _chargingTimeHours, _chargingTimeMinutes),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
               ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:electric_cars_calculator/unit/show_toast.dart';
 
 class CustomBatteryDialog {
@@ -7,24 +8,26 @@ class CustomBatteryDialog {
     TextEditingController controller,
     Function(double) onBatteryCapacityEntered,
   ) {
+    final localizations = AppLocalizations.of(context)!;
+
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Enter Battery Capacity'),
+          title: Text(localizations.custom_battery_capacity_title),
           content: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Battery Capacity (kWh)',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: localizations.custom_battery_capacity_hint,
+              border: const OutlineInputBorder(),
               // prefixIcon: Icon(Icons.battery_full),
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(localizations.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -34,10 +37,10 @@ class CustomBatteryDialog {
                   onBatteryCapacityEntered(enteredCapacity);
                   Navigator.of(context).pop();
                 } else {
-                  showToast('Please enter a valid number');
+                  showToast(localizations.no_number_msg);
                 }
               },
-              child: const Text('OK'),
+              child: Text(localizations.ok),
             ),
           ],
         );

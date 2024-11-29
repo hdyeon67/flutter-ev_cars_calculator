@@ -7,5 +7,75 @@
   "description": "Welcome to our app.",
   "@description": {
     "description": "Subtitle shown below the title"
-  }
+  },
+  "intro_completed_msg": "Intro Completed.",
+  "tab_1_title": "Charging Cost",
+  "tab_2_title": "Charging Time",
+  "info_title": "Info",
+  "info_msg": "Use this app to calculate charging cost and time for your EV.",
+  "close": "Close",
+
+  "selected_battery_capacity": "Battery: {batteryCapacity} kWh",
+  "@selected_battery_capacity": {
+    "placeholders":{
+        "batteryCapacity": {
+            "type": "String",
+            "example": "50.0"
+        }
+    }
+  },
+  "select_battery_capacity_msg": "Select Battery Capacity",
+  "current_charge": "Current Charge (%)",
+  "target_charge": "Target Charge (%)",
+  "charging_power": "Charging Power (kW)",
+  "calculate_charging_time": "Calculate Charging Time",
+  "result_charging_time": "Charging Time: {chargingTimeHours}hours {chargingTimeMinutes}minutes",
+  "@result_charging_time": {
+    "placeholders":{
+        "chargingTimeHours": {
+            "type": "int?",
+            "example": "1"
+        },
+        "chargingTimeMinutes": {
+            "type": "int?",
+            "example": "30"
+        }
+    }
+  },
+
+  "charging_rate": "Charging Rate (kW)",
+  "cost_per": "Cost per kWh",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "calculate_cost": "Calculate Cost",
+  "result_charged_amount": "Charged Amount: {chargedAmount} kWh",
+  "@result_charged_amount": {
+    "placeholders":{
+        "chargedAmount": {
+            "type": "String",
+            "example": "50.0"
+        }
+    }
+  },
+  "result_total_cost": "Total Cost: {currency}{totalCost}",
+  "@result_total_cost": {
+    "placeholders":{
+        "currency": {
+            "type": "String",
+            "example": "₩"
+        },
+        "totalCost": {
+            "type": "String",
+            "example": "24,000"
+        }
+    }
+  },
+
+  "custom_battery_capacity_title": "Enter Battery Capacity",
+  "custom_battery_capacity_hint": "Battery Capacity (kWh)",
+  "cancel": "Cancel",
+  "no_number_msg": "Please enter a valid number",
+  "ok": "OK",
+
+  "custom_battery_capacity_enter_msg": "Enter Custom Battery Capacity"
 }

@@ -8,8 +8,8 @@ class AdMobService {
   //앱 개발시 테스트광고 ID로 입력
   static String? get bannerAdUnitId {
     if (Platform.isAndroid) {
-      // return 'ca-app-pub-3940256099942544/6300978111'; // 테스트광고 ID
-      return 'ca-app-pub-9758365972980092/4549918475';
+      return 'ca-app-pub-3940256099942544/6300978111'; // 테스트광고 ID
+      // return 'ca-app-pub-9758365972980092/4549918475';
     } else if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/2934735716'; // 테스트광고 ID
     }

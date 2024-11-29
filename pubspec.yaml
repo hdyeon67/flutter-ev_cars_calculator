@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.2+3
 
 environment:
   sdk: ^3.6.0-216.1.beta
@@ -38,6 +38,9 @@ dependencies:
   google_mobile_ads: ^5.2.0
   flutter_native_splash: ^2.4.3
   change_app_package_name: ^1.4.0
+  flutter_localizations: 
+    sdk: flutter # 다국어 패키지
+  intl: any #포맷 패키지
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +63,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
+  
 
   # To add assets to your application, add an assets section, like this:
   assets:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BatterySelectionDialog {
   static void showBatterySelectionDialog(
@@ -7,6 +8,8 @@ class BatterySelectionDialog {
     Function(double) onBatterySelected,
     Function() onCustomBatteryPressed, // CustomBatteryDialog 호출 콜백
   ) {
+    final localizations = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -34,9 +37,9 @@ class BatterySelectionDialog {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Select Battery Capacity',
-                style: TextStyle(
+              Text(
+                localizations.select_battery_capacity_msg,
+                style: const TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -74,9 +77,9 @@ class BatterySelectionDialog {
                   onCustomBatteryPressed(); // 사용자 정의 배터리 용량 입력 호출
                 },
                 icon: const Icon(Icons.edit, color: Colors.blue),
-                label: const Text(
-                  'Enter Custom Battery Capacity',
-                  style: TextStyle(
+                label: Text(
+                  localizations.custom_battery_capacity_enter_msg,
+                  style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

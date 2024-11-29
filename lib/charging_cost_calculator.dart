@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'dialog/battery_selection_dialog.dart'; // BatterySelectionDialog 파일 import
 import 'dialog/custom_battery_dialog.dart'; // CustomBatteryDialog 파일 import
 import 'data/ev_battery_capacities.dart'; // evBatteryCapacities 파일 import
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChargingCostCalculator extends StatefulWidget {
   const ChargingCostCalculator({super.key});
@@ -23,12 +25,18 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
   double? _totalCost;
   double? _chargedAmount;
   String _currency = 'KRW';
+  String _total_cost = "";
+  var f;
 
   void _calculateCost() {
     final double? chargingRate = double.tryParse(_chargingRateController.text);
     final double? costPerKWh = double.tryParse(_costPerKWhController.text);
     final double? hours = double.tryParse(_hourController.text);
     final double? minutes = double.tryParse(_minuteController.text);
+
+    f = _currency == 'KRW'
+        ? NumberFormat('###,###,###,###원')
+        : NumberFormat('###,###,###,###.0#');
 
     if (_batteryCapacity != null &&
         chargingRate != null &&
@@ -38,12 +46,15 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
       double totalHours = hours + (minutes / 60);
       _chargedAmount = chargingRate * totalHours;
       _totalCost = _chargedAmount! * costPerKWh;
+      _total_cost = f.format(_totalCost);
       setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
@@ -57,8 +68,9 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
                 leading: const Icon(Icons.battery_full, color: Colors.green),
                 title: Text(
                   _batteryCapacity != null
-                      ? 'Battery: ${_batteryCapacity!.toStringAsFixed(1)} kWh'
-                      : 'Select Battery Capacity',
+                      ? localizations.selected_battery_capacity(
+                          _batteryCapacity!.toStringAsFixed(1))
+                      : localizations.select_battery_capacity_msg,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 trailing: IconButton(
@@ -89,12 +101,12 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
               ),
             ),
             const SizedBox(height: 16),
-            _buildInputField(
-                _chargingRateController, 'Charging Rate (kW)', Icons.flash_on),
+            _buildInputField(_chargingRateController,
+                localizations.charging_rate, Icons.flash_on),
             const SizedBox(height: 16),
-            _buildCurrencySelector(),
+            _buildCurrencySelector(localizations),
             const SizedBox(height: 16),
-            _buildTimeInputs(),
+            _buildTimeInputs(localizations),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
@@ -105,7 +117,7 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
                 backgroundColor: const Color(0xff536dfe),
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Calculate Cost'),
+              child: Text(localizations.calculate_cost),
             ),
             const SizedBox(height: 20),
             if (_totalCost != null && _chargedAmount != null)
@@ -118,13 +130,15 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Charged Amount: ${_chargedAmount!.toStringAsFixed(2)} kWh',
+                        localizations.result_charged_amount(
+                            _chargedAmount!.toStringAsFixed(2)),
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Total Cost: ${_currency == 'KRW' ? '₩' : '\$'}${_totalCost!.toStringAsFixed((_currency == 'KRW' ? 0 : 2))}',
+                        localizations.result_total_cost(
+                            _currency == 'KRW' ? '' : '\$', _total_cost),
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -138,12 +152,12 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
     );
   }
 
-  Row _buildCurrencySelector() {
+  Row _buildCurrencySelector(AppLocalizations localizations) {
     return Row(
       children: [
         Expanded(
           child: _buildInputField(
-              _costPerKWhController, 'Cost per kWh', Icons.credit_card),
+              _costPerKWhController, localizations.cost_per, Icons.credit_card),
         ),
         const SizedBox(width: 16),
         DropdownButton<String>(
@@ -157,6 +171,9 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
           onChanged: (value) {
             setState(() {
               _currency = value!;
+              if (_total_cost.isNotEmpty) {
+                _calculateCost();
+              }
             });
           },
         ),
@@ -164,16 +181,17 @@ class _ChargingCostCalculatorState extends State<ChargingCostCalculator> {
     );
   }
 
-  Row _buildTimeInputs() {
+  Row _buildTimeInputs(AppLocalizations localizations) {
     return Row(
       children: [
         Expanded(
-          child: _buildLimitedInputField(_hourController, 'Hours', Icons.timer),
+          child: _buildLimitedInputField(
+              _hourController, localizations.hours, Icons.timer),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: _buildLimitedInputField(
-              _minuteController, 'Minutes', Icons.timer),
+              _minuteController, localizations.minutes, Icons.timer),
         ),
       ],
     );

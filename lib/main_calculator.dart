@@ -4,6 +4,7 @@ import 'package:electric_cars_calculator/unit/ad_mob_service.dart';
 import 'package:flutter/foundation.dart'; // kIsWeb 상수를 위해 필요
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EVCalculatorHome extends StatefulWidget {
   const EVCalculatorHome({super.key});
@@ -44,28 +45,30 @@ class _EVCalculatorHomeState extends State<EVCalculatorHome>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.ev_station_outlined, color: Colors.white),
-            SizedBox(width: 10),
-            Text('EV Cars Calculator',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            //Icon(Icons.ev_station_outlined, color: Colors.white),
+            const SizedBox(width: 10),
+            Text(localizations.title,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
-          tabs: const [
+          tabs: [
             Tab(
-              icon: Icon(Icons.credit_card_outlined),
-              text: 'Charging Cost',
+              icon: const Icon(Icons.credit_card_outlined),
+              text: localizations.tab_1_title,
             ),
             Tab(
-              icon: Icon(Icons.timer_outlined),
-              text: 'Charging Time',
+              icon: const Icon(Icons.timer_outlined),
+              text: localizations.tab_2_title,
             ),
           ],
         ),
@@ -83,13 +86,22 @@ class _EVCalculatorHomeState extends State<EVCalculatorHome>
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Info'),
-              content: const Text(
-                  'Use this app to calculate charging cost and time for your EV.'),
+              title: Text(localizations.info_title),
+              content: Text(
+                localizations.info_msg,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Close'),
+                  child: Text(
+                    localizations.close,
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ],
             ),

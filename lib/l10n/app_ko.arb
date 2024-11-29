@@ -7,5 +7,76 @@
   "description": "우리 앱에 오신 것을 환영합니다.",
   "@description": {
     "description": "제목 아래 표시되는 부제목"
-  }
+  },
+  "intro_completed_msg": "소개가 완료되었습니다.",
+  "tab_1_title": "충전 비용",
+  "tab_2_title": "충전 시간",
+  "info_title": "정보",
+  "info_msg": "이 앱을 사용하여 EV 충전 비용과 시간을 계산하세요.",
+  "close": "닫기",
+
+  "selected_battery_capacity": "배터리: {batteryCapacity} kWh",
+  "@selected_battery_capacity": {
+    "placeholders":{
+        "batteryCapacity": {
+            "type": "String",
+            "example": "50.0"
+        }
+    }
+  },
+  "select_battery_capacity_msg": "배터리 용량 선택",
+  "current_charge": "현재 충전량 (%)",
+  "target_charge": "목표 충전량 (%)",
+  "charging_power": "충전 전력 (kW)",
+  "calculate_charging_time": "충전 시간 계산",
+  "result_charging_time": "충전 시간: {chargingTimeHours}시간 {chargingTimeMinutes}분",
+  "@result_charging_time": {
+    "placeholders":{
+        "chargingTimeHours": {
+            "type": "int?",
+            "example": "1"
+        },
+        "chargingTimeMinutes": {
+            "type": "int?",
+            "example": "30"
+        }
+    }
+  },
+
+  "charging_rate": "충전기 전력 (kW)",
+  "cost_per": "kWh당 요금",
+  "hours": "시간",
+  "minutes": "분",
+  "calculate_cost": "요금 계산",
+  "result_charged_amount": "충전량: {chargedAmount} kWh",
+  "@result_charged_amount": {
+    "placeholders":{
+        "chargedAmount": {
+            "type": "String",
+            "example": "50.0"
+        }
+    }
+  },
+  "result_total_cost": "요금: {currency}{totalCost}",
+  "@result_total_cost": {
+    "placeholders":{
+        "currency": {
+            "type": "String",
+            "example": "₩"
+        },
+        "totalCost": {
+            "type": "String",
+            "example": "24,000"
+        }
+    }
+  },
+
+  "custom_battery_capacity_title": "배터리 용량 입력",
+  "custom_battery_capacity_hint": "배터리 용량 (kWh)",
+  "cancel": "취소",
+  "no_number_msg": "유효한 숫자를 입력하세요.",
+  "ok": "OK",
+
+  "custom_battery_capacity_enter_msg": "직접 배터리 용량 입력"
 }
+
