@@ -3,8 +3,15 @@ import 'package:electric_cars_calculator/main_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'; // Add this line
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'; // Add this line
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp();
+
+  // Crashlytics 설정
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
   runApp(const EVCalculatorApp());
 }
 
@@ -57,11 +64,14 @@ class HomeScreen extends StatelessWidget {
 }
 
 Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+  // 에러가 발생한 경우
   if (snapshot.hasError) {
     return const Text("Error!!");
   } else if (snapshot.hasData) {
+    // 데이터가 있는 경우
     return const EVCalculatorHome();
   } else {
+    // 데이터가 없는 경우
     return const IntroScreen();
   }
 }

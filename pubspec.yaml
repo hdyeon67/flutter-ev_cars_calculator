@@ -41,6 +41,8 @@ dependencies:
   flutter_localizations: 
     sdk: flutter # 다국어 패키지
   intl: any #포맷 패키지
+  firebase_core: ^3.8.0
+  firebase_crashlytics: ^4.1.5
 
 dev_dependencies:
   flutter_test:
